@@ -1,0 +1,37 @@
+#+STARTUP: showall
+#+STARTUP: latexpreview
+#+TITLE: Anaconda and Python on ArchLinux for DeepLearning
+#+AUTHOR: Julio C.
+
+* Install conda on ArchLinux
+This information comes from the official ArchWiki at https://wiki.archlinux.org/title/Conda
+
+* Install PyTorch
+- Recommended Python version > 3.8
+- Tested with Python version 3.12.4
+
+** Create an environment
+
+#+BEGIN_SRC shell
+conda create --name pytorch
+#+END_SRC
+
+If you get into the following error:
+/CondaValueError: You have chosen a non-default solver backend (libmamba) but it was not recognized. Choose one of: classic./ then run the following command to solve it
+
+/conda config --set solver classic/
+
+You can get access to the installed CUDA version with the command /nvidia-smi/.
+
+** Install Jupyter
+
+#+begin_src shell
+conda install -c conda-forge notebook
+#+end_src
+
+** Install and upgrade pip
+
+#+begin_src
+conda install pip
+pip install --upgrade pip
+#+end_src
