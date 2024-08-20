@@ -17,9 +17,19 @@ conda create --name pytorch
 #+END_SRC
 
 If you get into the following error:
-/CondaValueError: You have chosen a non-default solver backend (libmamba) but it was not recognized. Choose one of: classic./ then run the following command to solve it
+/CondaValueError: You have chosen a non-default solver backend (libmamba) but it was not recognized. Choose one of: classic./
 
+You may need to change the solver, to do so proceed with one of the following commands
+#+begin_src shell
 /conda config --set solver classic/
+/conda config --set solver libmamba/
+#+end_src
+
+You can change the channel piority with the following command
+#+begin_src
+/conda config --set channel_priority flexible
+/conda config --set channel_priority strict
+#+end_src
 
 You can get access to the installed CUDA version with the command /nvidia-smi/.
 
@@ -31,7 +41,41 @@ conda install -c conda-forge notebook
 
 ** Install and upgrade pip
 
-#+begin_src
+#+begin_src shell
 conda install pip
 pip install --upgrade pip
+#+end_src
+
+** Install common packages
+
+#+begin_src shell
+pip install numpy scipy matplotlib scikit-learn scikit-optimize pandas seaborn
+#+end_src
+
+** Install Auto ScikitLearn
+#+begin_src
+pip install auto-sklearn
+#+end_src
+
+** Installing PyTorch
+The information comes from the official web page https://pytorch.org/get-started/locally/
+#+begin_src
+pip3 install torch torchvision torchaudio --index-url https://download.pytorch.org/whl/cu124
+#+end_src
+
+** Testing the installation
+Run the following code within a Python session
+
+#+begin_src
+import torch
+x = torch.rand(5, 3)
+print(x)
+#+end_src
+
+The output should print a random 5x3 tensor
+
+To check whether GPU-CUDA is available run the following, ypu should have TRUE as output
+#+begin_src
+import torch
+torch.cuda.is_available()
 #+end_src
