@@ -1,0 +1,26 @@
+#+STARTUP: showall
+#+STARTUP: latexpreview
+#+TITLE: Installing printers using CUPS
+#+AUTHOR: Julio C.
+
+* Archlinux
+The description provided on this section was taken from https://unix.stackexchange.com/questions/756972/how-to-install-printer-drivers-on-arch-linux-when-there-is-no-official-arch-pack
+
+1. Install =cups= with the command
+
+ #+begin_src shell
+sudo pacman -Syu cups cups-pdf
+ #+end_src
+
+2. Enable the cups service
+#+begin_src shell
+sudo systemctl enable cups
+sudo systemctl start cups
+#+end_src
+
+3. Try adding the printer using the system GUI. If that does not work then open the =cups= webpage =localhost:631= and go to =Administration->Printers= and click on =Add Printer= or =Find New Printers=
+
+4. After configuring the printer try it out and make sure it is listed in the system printers.
+
+   socket://192.168.126.223:9100
+4. To add a new printer

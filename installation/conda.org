@@ -33,6 +33,24 @@ You can change the channel piority with the following command
 
 You can get access to the installed CUDA version with the command /nvidia-smi/.
 
+** Change environment
+#+begin_src  shell
+conda activate pytorch
+#+end_src
+
+to make sure you are on the corresponding environment use the command
+#+begin_src shell
+conda info
+#+end_src
+
+or
+
+#+begin_src shell
+conda env list
+#+end_src
+
+and look for the =*= as the mark of the active environment.
+
 ** Install Jupyter
 
 #+begin_src shell
