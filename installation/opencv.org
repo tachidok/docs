@@ -1,0 +1,19 @@
+#+STARTUP: showall
+#+STARTUP: latexpreview
+#+TITLE: OpenCV installation
+#+AUTHOR: Julio C.
+
+The installation is based on the tutorial =Mastering OpenCV with Python= on this page:
+
+https://courses.opencv.org/courses/course-v1:OpenCV+101+Beginners/courseware/07b6a4ae918d40708ec3644d84617e51/31e72d9d542544268eb54ac87f16d958/1?activate_block_id=block-v1%3AOpenCV%2B101%2BBeginners%2Btype%40vertical%2Bblock%40e1aeca6f7d0849398061024ffcc2d1fe
+
+This tutorial consideres you have conda installed on your system, either miniconda or anaconda, you may check this [[file:conda.org][tutorial]] for installation.
+
+* Install OpenCV
+
+- Recommended Python version on OpenCV course = 3.11
+** Create an environment
+
+#+begin_src shell
+conda create --name opencv-env python=3.11
+#+end_src
