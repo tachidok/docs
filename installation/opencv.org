@@ -17,3 +17,43 @@ This tutorial consideres you have conda installed on your system, either minicon
 #+begin_src shell
 conda create --name opencv-env python=3.11
 #+end_src
+
+If you get an error regarding a non-default solver backend, you can set one as follows:
+=CondaValueError: You have chosen a non-default solver backend (libmamba) but it was not recognized. Choose one of: classic.=
+
+You may need to change the solver, to do so proceed with one of the following commands
+#+begin_src shell
+conda config --set solver classic
+conda config --set solver libmamba
+#+end_src
+
+You can change the channel piority with the following command
+#+begin_src
+conda config --set channel_priority flexible
+conda config --set channel_priority strict
+#+end_src
+
+
+** Activate the environment
+
+#+begin_src shell
+conda activate opencv-env
+#+end_src
+
+** Upgrade pip
+
+#+begin_src shell
+pip install --upgrade pip
+#+end_src
+
+** Install OpenCV
+
+#+begin_src shell
+pip install opencv-contrib-python streamlit moviepy jupyter matplotlib ipykernel
+#+end_src
+
+** Additional packages
+
+#+begin_src shell
+pip install pyautogui mediapipe mime
+#+end_src

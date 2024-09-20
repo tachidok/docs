@@ -1,0 +1,164 @@
+#+STARTUP: showall
+#+STARTUP: latexpreview
+#+TITLE: Archlinux
+#+AUTHOR: Julio C.
+
+* Installation
+
+** Partitioning
+- Use =cfdisk= to create partitions
+  a. Create a partition of about 1GB to mount the *boot system* or use the one that is already in the system if you have another linux distros installed.
+  b. Double check that the system type is =fat32=
+- Use the previously created partition as the mount point for booting the system in =/boot= or =/boot/efi=
+- Create another partition for the file system, check that the type is =ext4= and mark it for formatting
+- Use the previous partition to mount the system at =/=
+- If there are no another linux distros installed then you need to create another partition of type =ext4= to mount =/home/=
+- If you have another linux distros then use that partition for =/home= *but make sure to use a different user name for each distro* such that the files of the installed distro are stored in =/home/user=
+
+** Installation script
+Use the =archinstall= script and follow on-screen instructions
+
+** Post installation
+
+*** Build in parallel using multiple jobs
+Modify the =/etc/makepkg.conf= to build in parallel using multiple jobs, set MAKEFLAGS='-j20' where 20 is the number of threads in the system
+
+*** Software to install from the official ArchLinux repository
+#+begin_src shell
+sudo pacman -S base-devel nano less terminator gedit emacs git evince meld gimp vlc simple-scan net-tools htop cmake inkscape gparted xarchiver file-roller ripgrep man-db alacritty tmux ntfs-3g ntfsprogs
+#+end_src
+
+*** Install latex packages
+#+begin_src shell
+sudo pacman -S texlive-basic texlive-binextra texlive-fontsrecommended texlive-fontutils texlive-humanities texlive-latex texlive-latexextra texlive-mathscience texlive-pictures texlive-plaingeneric texlive-pstricks
+#+end_src
+
+*** Install and enable print services
+ #+begin_src shell
+sudo pacman -S cups
+sudo systemctl start cups
+sudo systemctl enable cups
+ #+end_src
+
+*** Software to install from the AUR (Archlinux User Repository)
+**** MANUAL
+
+*Example: Install Google Chrome*
+
+1. Go to the AUR website
+https://aur.archlinux.org/packages/google-chrome
+
+2. Copy the git link
+https://aur.archlinux.org/google-chrome.git
+
+3. Git clone into a local folder, you need to keep this folder as long as you have the software installed in your system, otherwise you would need to re-download it before updating
+
+#+begin_src shell
+mkdir AUR_software
+cd AUR_software
+git clone https://aur.archlinux.org/google-chrome.git
+cd google-chrome
+#+end_src
+
+4. Build and install using makepkg
+#+begin_src shell
+makepkg -si
+#+end_src
+
+5. If you do not pass the =-i= then you will need to install using pacman
+#+begin_src shell
+sudo pacman -U file_with_extension.plg.tar.zst
+#+end_src
+
+*Example: Update Google Chrome*
+
+1. Go to the folder where you originally download the packages to install
+2. Do a =git pull=
+3. Update by reinstalling
+
+#+begin_src shell
+makepkg -si
+#+end_src
+
+**** AUTOMATIC
+
+*Install an AUR helper installer*
+
+1. Git clone the repository for =yay=
+
+#+begin_src shell
+mkdir AUR_software
+cd AUR_software
+git clone https://aur.archlinux.org/yay.git
+cd yay
+makepkg -si yay
+#+end_src
+
+2. Update =yay=
+#+begin_src shell
+yay -S
+#+end_src
+
+3. Install some software
+#+begin_src shell
+yay -S rar auctex downgrade dropbox
+#+end_src
+
+* Maintenance
+** Keep your system up-to-date
+
+Recommended to run every two weeks
+
+#+begin_src shell
+sudo pacman -Syu
+yay -Syu
+#+END_SRC
+
+* Additional stuff
+
+** Yay
+Upate only packages installed with =yay=
+#+begin_src shell
+yay -Sua
+#+end_src
+
+Remove a package installed with =yay=
+#+begin_src shell
+yay -Rns package_name
+#+end_src
+
+The =rn= is for removing no-longer needed packages
+
+Remove unwanted dependencies in the system
+#+begin_src shell
+yay -Yc
+#+end_src
+
+Search for a package
+#+begin_src shell
+yay -Ss package_name
+#+end_src
+
+Get detailed information of a package
+#+begin_src shell
+yay -Si package_name
+#+end_src
+
+** Crash reports
+Log file to check for any crash can be found in =/var/log/pacman.log=
+
+** Pacman
+Update key-rings
+#+begin_src shell
+sudo pacman -Sy archlinux-keyring
+#+end_src
+
+Remove cache files
+#+begin_src shell
+sudo pacman -Scc
+#+end_src
+
+Remove everything but the last three cache packages, as an alternative of the above =-Scc= command
+#+begin_src shell
+sudo paccache -r
+#+end_src
